@@ -1,5 +1,6 @@
 "use strict";
 const React = require("react");
+const Relay = require("react-relay");
 const PropTypes = require("prop-types");
 
 const ALL_INITIALIZERS = [];
@@ -315,4 +316,12 @@ Loadable.preloadReady = () => {
   });
 };
 
-module.exports = Loadable;
+module.exports = Relay.createContainer(Loadable,{
+  fragments: {
+    viewer: () => Relay.QL`
+      fragment on Viewer {
+        id
+      }
+    `
+  }
+});
